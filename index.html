@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="cronometro.png" />
+    <link rel="stylesheet" href="./estilo.css" />
+    <title>Cronometro</title>
+</head>
+<body>
+    <div class="cronometro">
+    <div class="btnCrono"></div>
+        <div class="container">
+            <p class="tempo" id="tempo">00:00:00</p>
+        </div>
+
+        <div class="buttons">
+            <button class="start" id="start">start</button>
+            <button class="pause" id="pause">pause</button>
+            <button class="lapse" id="lapse">lapse</button>
+            <button class="reset" id="reset">reset</button>
+        </div>
+        
+        <select class="laps hidden" id="laps"></select>
+    </div>
+    <script src="cronometro.js"></script>
+</body>
+</html>
