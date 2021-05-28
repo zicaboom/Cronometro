@@ -58,6 +58,10 @@ button{
     border: 1px solid green;
     font-size: 14px;
 }
+button:hover{
+    background-color: green;
+    color: white;
+}
 .clica{
     animation: clica 200ms;
 }
