@@ -2,6 +2,7 @@ const lbTempo = document.querySelector('#tempo')
 const btnStart = document.querySelector('#start')
 const btnPause = document.querySelector('#pause')
 const btnLapse = document.querySelector('#lapse')
+const btnClearLaps = document.querySelector('#clearLp')
 const btnReset = document.querySelector('#reset')
 const btnCrono = document.querySelector('.btnCrono')
 const sltLaps = document.querySelector('#laps')
@@ -10,6 +11,7 @@ btnStart.addEventListener('click', start)
 btnPause.addEventListener('click', pause)
 btnReset.addEventListener('click', reset)
 btnLapse.addEventListener('click', lapse)
+btnClearLaps.addEventListener('click', clearLaps)
 btnCrono.addEventListener('animationend', event => {
     if (event.animationName == 'clica') {
         btnCrono.classList.remove('clica')
@@ -49,16 +51,19 @@ function pause() {
 }
 function reset() {
     pause()
-    sltLaps.classList.add('hidden')
     tempoAtual.resetTime()
     lbTempo.innerHTML = tempoAtual.retornaTempo()
-    sltLaps.innerHTML = ``
     
 }
 function lapse() {
     anima()
     sltLaps.classList.remove('hidden')
     sltLaps.innerHTML += `<option>${tempoAtual.retornaTempo()}</option>`
+}
+function clearLaps() {
+    anima()
+    sltLaps.classList.add('hidden')
+    sltLaps.innerHTML = ``
 }
 
 const zeroFill = (n)  => {
