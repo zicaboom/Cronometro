@@ -76,10 +76,6 @@ select:hover, button:hover{
     background-color: rgba(255, 0, 0, 0.7);
     color: white;
 }
-button:hover{
-    background-color: green;
-    color: white;
-}
 .clica{
     animation: clica 200ms;
 }
