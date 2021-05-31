@@ -10,60 +10,60 @@ btnStart.addEventListener('click', start)
 btnPause.addEventListener('click', pause)
 btnReset.addEventListener('click', reset)
 btnLapse.addEventListener('click', lapse)
+btnCrono.addEventListener('animationend', event => {
+    if (event.animationName == 'clica') {
+        btnCrono.classList.remove('clica')
+    }
+})
 
 let AttInterval
 let tempoAtual = {
-    min: 0,
-    sec: 0,
-    miliSec :0
+    m: 0,s: 0, cs:0,  
+    retornaTempo() {
+        return `${zeroFill(this.m)}:${zeroFill(this.s)}:${zeroFill(this.cs)}`
+    },
+    addCs() {
+        this.cs += 1
+        if (this.cs === 100) this.s++, this.cs = 0; 
+        if (this.s === 60) this.m++, this.s = 0; 
+    },
+    resetTime() {
+        this.m = 0
+        this.s = 0
+        this.cs = 0
+    }
 }
 
 function start() {
     btnStart.removeEventListener('click', start)
-    btnCrono.classList.add('clica')
-    btnCrono.addEventListener('animationend', event => {
-        if (event.animationName == 'clica') {
-            btnCrono.classList.remove('clica')
-        }
-    })
+    anima()
     AttInterval = setInterval(function () {
-        if(tempoAtual.sec === 60){ tempoAtual.min++; tempoAtual.sec = 0}
-        if (tempoAtual.miliSec === 60) { tempoAtual.sec++; tempoAtual.miliSec = 0}
-        tempoAtual.miliSec++
-        lbTempo.innerHTML = `${zeroFill(tempoAtual.min)}:${zeroFill(tempoAtual.sec)}:${zeroFill(tempoAtual.miliSec)}`
-    }, 1)
+    tempoAtual.addCs()
+    lbTempo.innerHTML = tempoAtual.retornaTempo()
+    }, 10)
 }
 function pause() {
-    btnCrono.classList.add('clica')
-    btnCrono.addEventListener('animationend', event => {
-        if (event.animationName == 'clica') {
-            btnCrono.classList.remove('clica')
-        }
-    })
+    anima()
     btnStart.addEventListener('click', start)
     clearInterval(AttInterval)
 }
 function reset() {
     pause()
     sltLaps.classList.add('hidden')
-    tempoAtual.min = 0
-    tempoAtual.sec = 0
-    tempoAtual.miliSec = 0
-    lbTempo.innerHTML = `${zeroFill(tempoAtual.min)}:${zeroFill(tempoAtual.sec)}:${zeroFill(tempoAtual.miliSec)}`
+    tempoAtual.resetTime()
+    lbTempo.innerHTML = tempoAtual.retornaTempo()
     sltLaps.innerHTML = ``
     
 }
 function lapse() {
-    btnCrono.classList.add('clica')
-    btnCrono.addEventListener('animationend', event => {
-        if (event.animationName == 'clica') {
-            btnCrono.classList.remove('clica')
-        }
-    })
+    anima()
     sltLaps.classList.remove('hidden')
-    sltLaps.innerHTML += `<option>${zeroFill(tempoAtual.min)}:${zeroFill(tempoAtual.sec)}:${zeroFill(tempoAtual.miliSec)}</option>`
+    sltLaps.innerHTML += `<option>${tempoAtual.retornaTempo()}</option>`
 }
-const zeroFill = n => {
-        //pega as duas ultimas posições
-		return ('0' + n).slice(-2);
-	}
+
+const zeroFill = (n)  => {
+    //pega as duas ultimas posições
+    return ('0' + n).slice(-2);
+}
+
+const anima = () => btnCrono.classList.add('clica')
